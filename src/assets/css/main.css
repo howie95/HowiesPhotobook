@@ -1,0 +1,150 @@
+.header-holder {
+    height: 200px;
+    display: none;
+}
+.header-content {
+    width: 85%;
+    margin: 0 auto;
+}
+.header-title {
+    width:540px;
+    margin: 20px auto;
+}
+.header-title .howie {
+    top: 20px;
+    position: relative;
+    width: 300px;
+}
+.header-title .hh {
+    stroke: #a89d9d;    
+}
+.header-title h1 {
+    display: inline-block;
+    color: #a89d9d;
+    font-size: 40px;
+}
+
+.header-nav {
+    position: relative;
+    width: 590px;
+    margin: 0 auto;
+}
+.header-nav ul li{
+    display: inline-block;
+    margin: 5px 25px;
+    list-style: none;
+    color: #a89d9d;
+    font-size: 17px;
+}
+
+main {
+    width: 800px;
+    margin: 0 auto;
+}
+.photos {
+    width: 650px;
+    margin: 50px auto;
+    text-align: center;
+}
+.photos span {
+    float: right;
+    text-align: right;
+    margin-left: 15px;
+}
+.photos .phototitle {
+    line-height: 25px;
+    font-size: 15px;
+    color: #db7e7e;
+}
+.photos .photodate {
+    padding-top: 9px;
+    line-height: 12px;
+    font-size: 12px;
+    color: #cfadad;
+}
+.photos img {
+    max-width: 650px;
+}
+.loading {
+    width: 650px;
+    height: 650px;
+    background-color:#fef9f5;
+}
+.loading svg {
+    position: relative;
+    top: 45%;
+    padding: 10px;
+    width: 50px;
+}
+.loading path {
+    fill: none;
+    fill-rule: evenodd;
+    stroke: #dfd2d2;
+    stroke-linecap: round;
+    stroke-width:20px;
+    animation: loading 2s ease-out infinite alternate;    
+}
+@keyframes loading {
+    0% {
+        stroke-dasharray: 0, 500;
+    }
+    100% {
+        stroke-dasharray: 500, 500;
+    }
+}
+
+.downpage {
+    position: fixed;
+    width: 250px;
+    bottom: 100px;
+    left: 100px;
+    animation: headerfade 0.8s ease-out;
+}
+@keyframes headerfade {
+    0%{opacity: 0}
+    100%{opacity: 1}
+}
+.downpage .header-title{
+    width: 250px;
+}
+.downpage .howie {
+    width: 250px;
+}
+.downpage h1 {
+    position: relative;
+    left: 80px;
+    font-size: 30px;
+}
+.downpage .header-nav {
+    width: 250px;
+}
+.downpage nav ul li {
+    margin: 10px 10px;
+    display: list-item;
+    text-align: right;
+}
+
+.foot-bts {
+    opacity: 0;
+    transition: 0.8s ease-out;
+    position: fixed;
+    bottom: 100px;
+    right: 350px;
+}
+.foot-bts ul li {
+    list-style: none;
+    margin: 10px 0;
+}
+.foot-bts svg {
+    width: 20px;
+    height: 20px;
+}
+.foot-bts .active rect {
+    fill: #a89d9d;
+}
+.foot-bts rect {
+    fill: #dfd2d2;
+}
+.foot-bts path {
+    fill: #dfd2d2;
+}
