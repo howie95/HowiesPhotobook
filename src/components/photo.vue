@@ -1,12 +1,9 @@
 <template>
-    <main-header>
     <main>
         <section class="photos" v-for="item in photoList" :key="item.id"><span class="phototitle">{{ item.title }}</span><span class="photodate">{{ item.date }}</span><img :src="/static/+item.path" :alt="item.title"><img src="/static/shadow_m.png" alt="shadow"></section>
     </main>
-    </main-header>
 </template>
 <script>
-import mainHeader from './header'
 export default {
     name:'photo',
     data(){
@@ -16,12 +13,12 @@ export default {
     },
     mounted: function(){
         this.$http.get('/api/photoList').then(
-        response => this.photoList = response.data.reverse(),
+        response => {
+            console.log(response)
+            this.photoList = response.data.reverse()
+            },
         response => console.log(response)
       )
     },
-    components:{
-        mainHeader
-    }
 }
 </script>

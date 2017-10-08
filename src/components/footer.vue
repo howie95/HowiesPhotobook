@@ -1,6 +1,6 @@
 <template>
     <footer>
-        <div class="foot-bts" v-if="!isTop">
+        <div class="foot-bts">
             <ul>
                 <li><svg class="active" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 24.5"><rect width="25" height="10.5" rx="2.19" ry="2.19"/><rect y="14" width="25" height="10.5" rx="2.19" ry="2.19"/></svg></li>
                 <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25.5 24.5"><rect width="10.5" height="10.5" rx="2.19" ry="2.19"/><rect x="15" width="10.5" height="10.5" rx="2.19" ry="2.19"/><rect y="14" width="10.5" height="10.5" rx="2.19" ry="2.19"/><rect x="15" y="14" width="10.5" height="10.5" rx="2.19" ry="2.19"/></svg></li>
