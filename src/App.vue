@@ -1,9 +1,15 @@
 <template>
+  <div class="app">
+    <router-view name="mainheader"></router-view>
     <router-view></router-view>
+    <router-view name="mainfooter"></router-view>
+  </div>
 </template>
 
 <script>
-export default {
-  name: 'app'
-}
+  import '@/assets/css/titlepage.css'
+  import '@/assets/css/main.css'
+  export default {
+    name: 'app'
+  }
 </script>

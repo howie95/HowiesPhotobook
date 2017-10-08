@@ -8,6 +8,3 @@
         </div>
     </div>
 </template>
-<script>
-import '@/assets/css/titlepage.css'
-</script>
