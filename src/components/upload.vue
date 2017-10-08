@@ -24,7 +24,7 @@
                     <h3>主题颜色:</h3>
                     <input type="text" name="color" v-model="color"><br>
                     <h3>路径:</h3>
-                    <input type="text" name="path" v-model="path"><br>
+                    <input type="file" name="file" @change="getFile"><br>
                 </form>
                 <button @click="savePic">上传</button>
                 <h3>{{msg}}</h3>
@@ -43,22 +43,19 @@ export default {
             color:'',
             labels:[],
             path:'',
+            file:'',
             msg:'',
         }
     },
     methods:{
+        getFile:function(e){
+            this.file = e.target.files[0]
+            this.path = this.file.name
+        },
         savePic:function(){
-            let self = this
-            let obj = {
-                title:this.title,
-                date:this.date,
-                color:this.color,
-                labels:[],
-                path:this.path
-            }
-            this.$http.post('/api/savePic', {
-            picInfo: obj
-            }).then(
+            let form = document.querySelector("form")
+            let param = new FormData(form)
+            this.$http.post('/api/savePic', param).then(
                 response => this.msg = "成功",
                 response => this.msg = response
             )

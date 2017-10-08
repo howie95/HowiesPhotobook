@@ -1,6 +1,18 @@
 const express = require('express')
 const router = express.Router()
 const db = require('./database')
+const multer = require('multer')
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './static')
+  }, 
+  filename: function (req, file, cb) {
+    var fileFormat = (file.originalname).split(".")
+    cb(null, file.fieldname + '-' + Date.now() + "." + fileFormat[fileFormat.length - 1])
+  }
+})  
+const upload = multer({ storage:storage })
 
 //获取所有图片
 router.get('/api/photoList', function (req, res) {
@@ -14,12 +26,11 @@ router.get('/api/photoList', function (req, res) {
 })
 
 //保存图片
-router.post('/api/savePic', function (req, res) {
-  console.log(req)
-  console.log("---------------")
-  console.log(req.body)
-  console.log("---------------")
-  new db.photos(req.body.picInfo).save(function (err) {
+router.post('/api/savePic',upload.single('file'),function (req, res) {
+  let picInfo = req.body
+  picInfo.labels = []
+  picInfo.path = req.file.filename
+  new db.photos(picInfo).save(function (err) {
     if (err) {
       res.status(500).send()
       return
