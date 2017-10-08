@@ -10,7 +10,4 @@
 </template>
 <script>
 import '@/assets/css/titlepage.css'
-export default {
-
-}
 </script>
