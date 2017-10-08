@@ -17,7 +17,7 @@ const router = new Router({
   mode: 'history',
   routes: [
     {path: '/', components: {default:index}},
-    {path: '/photo', components: {default:photo,mainheader:mainHeader,mainfooter:mainFooter}},
+    {path: '/photo', components: {default:photo}},
   ]
 })
 

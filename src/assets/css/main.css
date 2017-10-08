@@ -1,10 +1,14 @@
 .header-holder {
     height: 200px;
-    display: none;
 }
 .header-content {
     width: 85%;
     margin: 0 auto;
+    animation: headerfade1 0.8s ease-out;
+}
+@keyframes headerfade1 {
+    0%{opacity: 0}
+    100%{opacity: 1}
 }
 .header-title {
     width:540px;
@@ -125,11 +129,15 @@ main {
 }
 
 .foot-bts {
-    opacity: 0;
-    transition: 0.8s ease-out;
     position: fixed;
     bottom: 100px;
     right: 350px;
+}
+.fade-enter-active, .fade-leave-active {
+    transition: opacity .8s ease-out
+  }
+.fade-enter, .fade-leave-to /* .fade-leave-active in below version 2.1.8 */ {
+    opacity: 0
 }
 .foot-bts ul li {
     list-style: none;

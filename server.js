@@ -15,5 +15,5 @@ app.get('*', function (req, res) {
 })
 
 app.listen(3000, function () {
-  console.log('访问地址为 localhost:3000')
+  console.log('Photobook服务端已经在3000端口启动')
 })

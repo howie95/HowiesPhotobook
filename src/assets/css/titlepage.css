@@ -89,7 +89,7 @@ h1 {
     position: relative;
     top: 10px;
 }
-#titlespan span {
+#titlespan a {
     position: relative;
     display: block;
     margin: 0 auto;
@@ -102,7 +102,7 @@ h1 {
     background-color: white;
     animation: titleIn 1s ease-out 2.5s backwards;    
 }
-#titlespan span:hover{
+#titlespan a:hover{
     opacity: 0.9;
 }
 @keyframes titleIn {
