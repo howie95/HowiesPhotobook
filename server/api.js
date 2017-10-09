@@ -15,12 +15,17 @@ const storage = multer.diskStorage({
 })  
 const upload = multer({ storage:storage })
 
-//获取所有图片
+//获取图片
 router.get('/api/photoList', function (req, res) {
   let page = parseInt(req.query.page)
   let pages = parseInt(req.query.pages)
+  let labels = req.query.labels
+  let label = {}
   let skips = (page-1)*pages
-  let photos = db.photos.find({}).sort({_id: -1}).skip(skips).limit(pages)
+  if(labels!==""){
+    label = {"labels":labels}
+  }
+  let photos = db.photos.find(label).sort({_id: -1}).skip(skips).limit(pages)
   photos.exec(function (err, docs) {
     if (err) {
       console.error(err)

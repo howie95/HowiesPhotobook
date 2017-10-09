@@ -1,12 +1,12 @@
 <template>
     <div>
-        <main-header :isTop="isTop" :admin="admin"></main-header>
-        <main>
+        <main-header :isTop="isTop" :admin="admin" @labelcheck="labelcheck"></main-header>
+        <transition-group name="flip-list" tag="main">
             <section class="photos" v-for="item in photoList" :key="item._id"><span class="phototitle">{{ item.title }}</span><span class="photodate">{{ item.date }}</span><img :src="/static/+item.path" :alt="item.title"><img src="/static/shadow_m.png" alt="shadow"></section>
-            <div v-if="noMore" v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="20">
+        </transition-group>
+        <div v-if="noMore" v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="50">
             加载中</div>
-            <div v-if="!noMore">已经没有更多照片了</div>
-        </main>
+        <div v-if="!noMore">已经没有更多照片了</div>
         <main-footer :isTop="isTop" :admin="admin"></main-footer>
     </div>
 </template>
@@ -23,10 +23,12 @@ export default {
             pages:6,
             busy:true,
             noMore:true,
-            admin:false
+            admin:false,
+            label:''
         }
     },
     methods:{
+        //顶部样式变化
         move(){
             let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
             let offsetTop = document.querySelector('main').offsetTop
@@ -36,16 +38,17 @@ export default {
                 this.isTop=true
             }
             },
+        //读取图片
         getPhotos(e){
             let param = {
                 page:this.page,
-                pages:this.pages
+                pages:this.pages,
+                labels:this.label
             }
             this.$http.get('/api/photoList',{params:param}).then(
             response => {
                 if(e){
                     this.photoList = this.photoList.concat(response.data)
-                    console.log(response.data.length)
                     if(response.data.length==0||response.data.length<6){
                         this.busy=true
                         this.noMore=false
@@ -61,11 +64,20 @@ export default {
             response => console.log(response)
             )
         },
+        //滚动加载图片
         loadMore(){
             this.page++
             setTimeout(()=>{
                 this.getPhotos(true)
             },500)
+        },
+        //标签筛选
+        labelcheck(e){
+            this.page=1
+            this.noMore=true
+            this.label=e
+            this.getPhotos()
+            setTimeout(()=>{this.busy = false}, 2000)
         }
     },
     mounted: function(){

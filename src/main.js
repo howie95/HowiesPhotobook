@@ -18,12 +18,16 @@ Vue.config.productionTip = false
 const router = new Router({
   mode: 'history',
   routes: [
-    {path: '/', components: {default:index}},
-    {path: '/photo', components: {default:photo}},
-    {path: '/upload', components: {default:upload},meta: { requiresAuth: true }},
-    {path: '/signin', components: {default:signin}}
+    {path: '/', component: index},
+    {path: '/index.html', component: index},
+    {path: '/photo', component: photo},
+    {path: '/upload', component: upload,meta: { requiresAuth: true }},
+    {path: '/signin', component: signin,meta: { alreadyIn: true }},
+    {path: '*', component: photo}
   ]
 })
+
+//如果未登录 拦截upload路由 如果已登陆 拦截signin路由
 router.beforeEach((to, from, next) => {
   if (to.meta.requiresAuth) {
       if (!document.cookie.match("admin")) {
@@ -34,6 +38,17 @@ router.beforeEach((to, from, next) => {
           next()
       }
   } else {
+    next()
+  }
+  if (to.meta.alreadyIn) {
+    if (document.cookie.match("admin")) {
+      next({
+          path: '/photo',
+      })
+  } else {
+      next()
+  }
+  }else{
     next()
   }
 })

@@ -50,11 +50,18 @@
     border-color: #a89d9d;
     border-bottom: 4px solid;
 }
+.header-nav ul li a.checked{
+    border-color: #a89d9d;
+    border-bottom: 4px solid;
+}
 
 main {
     width: 800px;
     margin: 0 auto;
 }
+.flip-list-move {
+    transition: transform 1s;
+  }
 .photos {
     width: 650px;
     margin: 50px auto;
