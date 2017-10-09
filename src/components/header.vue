@@ -11,11 +11,13 @@
             <div class="header-nav">
                 <nav>
                     <ul>
-                        <li>人物</li>
-                        <li>风景</li>
-                        <li>杂项</li>
-                        <li>日期索引</li>
-                        <li>版权说明</li>
+                        <li><a>人物</a></li>
+                        <li><a>风景</a></li>
+                        <li><a>杂项</a></li>
+                        <li><a>日期索引</a></li>
+                        <li><a>版权说明</a></li>
+                        <li><router-link v-if="admin" to="/upload">上传图片</router-link></li>
+                        <li v-if="admin"><a @click="signout">退出登陆</a></li>
                     </ul>
                 </nav>
             </div>
@@ -25,9 +27,19 @@
 <script>
 export default {
   name:'header',
-  props: ['isTop'],
+  props: ['isTop','admin'],
   data(){
       return{
+      }
+  },
+  methods:{
+      signout(){
+        this.$http.post('/api/signout').then(
+            response => {
+                if(response.data.status=="0"){this.$router.push('/')}
+                },
+            response => this.msg = response
+        )
       }
   }
 }

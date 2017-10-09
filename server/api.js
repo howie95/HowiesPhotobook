@@ -2,13 +2,14 @@ const express = require('express')
 const router = express.Router()
 const db = require('./database')
 const multer = require('multer')
+const check = require('./admincheck').checkAdmin
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, './static')
   }, 
   filename: function (req, file, cb) {
-    var fileFormat = (file.originalname).split(".")
+    let fileFormat = (file.originalname).split(".")
     cb(null, file.fieldname + '-' + Date.now() + "." + fileFormat[fileFormat.length - 1])
   }
 })  
@@ -16,7 +17,11 @@ const upload = multer({ storage:storage })
 
 //获取所有图片
 router.get('/api/photoList', function (req, res) {
-  db.photos.find({}, function (err, docs) {
+  let page = parseInt(req.query.page)
+  let pages = parseInt(req.query.pages)
+  let skips = (page-1)*pages
+  let photos = db.photos.find({}).sort({_id: -1}).skip(skips).limit(pages)
+  photos.exec(function (err, docs) {
     if (err) {
       console.error(err)
       return
@@ -88,6 +93,16 @@ router.post('/api/signIn',function (req, res) {
         })
       }
     }
+  })
+})
+//管理员登出
+router.post('/api/signout',function (req, res) {
+  res.cookie("admin","",{
+    path:'/',
+    maxAge:-1
+  })
+  res.json({
+    status:"0"
   })
 })
 

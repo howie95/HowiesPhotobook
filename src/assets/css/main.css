@@ -29,16 +29,26 @@
 }
 
 .header-nav {
+    text-align: center;
     position: relative;
-    width: 590px;
     margin: 0 auto;
 }
 .header-nav ul li{
     display: inline-block;
-    margin: 5px 25px;
+    margin: 20px 0;
+    margin-right: 50px;
     list-style: none;
-    color: #a89d9d;
     font-size: 17px;
+}
+.header-nav ul li a{
+    color: #a89d9d;
+    cursor:pointer;
+    text-decoration: none;
+    transition: .3s ease-out;
+}
+.header-nav ul li a:hover{
+    border-color: #a89d9d;
+    border-bottom: 4px solid;
 }
 
 main {
@@ -151,8 +161,16 @@ main {
     fill: #a89d9d;
 }
 .foot-bts rect {
+    transition: .3s ease-out;
     fill: #dfd2d2;
 }
 .foot-bts path {
+    transition: .3s ease-out;
     fill: #dfd2d2;
+}
+.foot-bts li:hover rect {
+    fill: #a89d9d;
+}
+.foot-bts li:hover path {
+    fill: #a89d9d;
 }
