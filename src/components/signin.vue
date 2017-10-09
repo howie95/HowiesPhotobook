@@ -9,58 +9,87 @@
                     </h1>
                 </div>
                 <div class="small-title">
-                    <h2>上传图片</h2>
+                    <h2>{{title}}</h2>
                 </div>
             </div>
         </header>
         <main>
             <div class="upload">
                 <form>
-                    <h3>图片标题:</h3>
-                    <input type="text" name="title" v-model="title"><br>
-                    <h3>拍摄日期:</h3>
-                    <input type="text" name="date" v-model="date"><br>
-                    <h3>主题颜色:</h3>
-                    <input type="text" name="color" v-model="color"><br>
-                    <h3>路径:</h3>
-                    <input type="file" name="file" @change="getFile"><br>
+                    <h3>账号:</h3>
+                    <input type="text" name="name" v-model="name"><br>
+                    <h3>密码:</h3>
+                    <input type="text" name="password" v-model="password">
                 </form>
-                <button @click="savePic">上传</button>
+                <button @click="click(e)">{{button}}</button>
                 <h3>{{msg}}</h3>
             </div>
         </main>
-    </div>
+    </div> 
 </template>
-
 <script>
 export default {
-    name:'upload',
+    name:'signin',
     data(){
         return{
+            name:'',
+            password:'',
             title:'',
-            date:'',
-            color:'',
-            labels:[],
-            path:'',
-            file:'',
+            e:'',
+            button:'',
             msg:'',
         }
     },
     methods:{
-        getFile:function(e){
-            this.file = e.target.files[0]
-            this.path = this.file.name
-        },
-        savePic:function(){
-            let form = document.querySelector("form")
-            let param = new FormData(form)
-            this.$http.post('/api/savePic', param).then(
-                response => this.msg = "成功",
+        click:function(e){
+            let obj = {
+                name:this.name,
+                password:this.password
+            }
+            if(e == "signin"){
+                if(!obj.name&&!obj.password){
+                    this.msg = "请输入账号和密码"
+                    return
+                }
+                this.$http.post('/api/signIn', obj).then(
+                response => {
+                    let res = response.data
+                    if(res.status=="0"){
+                        this.msg="登陆成功，两秒后返回主页"
+                        setTimeout(()=>{this.$router.push('/photo')}, 2000)
+                    }else if(res.status=="1"){
+                        this.msg="服务器错误"
+                    }else{
+                        this.msg="账号或密码错误"
+                    }
+                },
+                response => this.msg = response
+                )
+            }else{
+                this.$http.post('/api/signUp', obj).then(
+                response => this.msg = "注册成功",
                 response => this.msg = response
             )
+            }
         }
+    },
+    mounted(){
+        this.$http.get('/api/hasadmin').then(
+        response => {
+            if(response.data==1){
+                this.title="管理员登入："
+                this.button="登陆"
+                this.e="signin"
+            }else{
+                this.title="管理员初始化："
+                this.button="注册"
+                this.e="signup"
+                this.msg="检测到当前系统没有管理员账户，请注册一位管理员进行相册管理"
+            }
+            },
+        response => console.log(response)
+      )
     }
-  
 }
 </script>
 

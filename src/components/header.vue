@@ -25,24 +25,10 @@
 <script>
 export default {
   name:'header',
+  props: ['isTop'],
   data(){
       return{
-      isTop:true
       }
-  },
-  methods:{
-      move(){
-          var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
-          var offsetTop = document.querySelector('main').offsetTop
-          if (scrollTop > offsetTop){
-              this.isTop=false
-          }else{
-              this.isTop=true
-          }
-      }
-  },
-  mounted(){
-      window.addEventListener('scroll', this.move)
   }
 }
 </script>

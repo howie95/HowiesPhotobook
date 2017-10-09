@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+mongoose.Promise = global.Promise 
 mongoose.connect('mongodb://localhost:27017/photobook')
 
 const photoSchem = new mongoose.Schema({
@@ -16,7 +17,7 @@ const adminUser = new mongoose.Schema({
 
 const Models = {
     photos: mongoose.model('photo',photoSchem),
-    admin: mongoose.model('admin',adminUser)
+    admins: mongoose.model('admin',adminUser)
 }
 
 module.exports = Models

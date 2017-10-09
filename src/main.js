@@ -5,9 +5,8 @@ import App from '@/app'
 
 import index from '@/components/index'
 import photo from '@/components/photo'
-import mainHeader from '@/components/header'
-import mainFooter from '@/components/footer'
 import upload from '@/components/upload'
+import signin from '@/components/signin'
 
 Vue.use(Router)
 Vue.prototype.$http = Axios
@@ -18,8 +17,9 @@ const router = new Router({
   mode: 'history',
   routes: [
     {path: '/', components: {default:index}},
-    {path: '/photo', components: {default:photo,mainheader:mainHeader,mainfooter:mainFooter}},
-    {path: '/upload', components: {default:upload}}
+    {path: '/photo', components: {default:photo}},
+    {path: '/upload', components: {default:upload}},
+    {path: '/signin', components: {default:signin}}
   ]
 })
 

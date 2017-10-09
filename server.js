@@ -1,20 +1,17 @@
 const express = require('express')
-const fs = require('fs')
 const path = require('path')
-const bodyParse = require('body-parser')
+const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
 const router = require('./server/api')
 const app = express()
 
-const resolve = file => path.resolve(__dirname, file)
-
-app.use('/dist', express.static(resolve('./dist')))
-app.use(bodyParse.json())
-app.use(bodyParse.urlencoded({ extended: true }))
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(cookieParser())
 app.use(router)
 
 app.get('*', function (req, res) {
-  let html = fs.readFileSync(resolve('./' + 'index.html'), 'utf-8')
-  res.send(html)
+  res.send("服务端已经在3000端口启动")
 })
 
 app.listen(3000, function () {
