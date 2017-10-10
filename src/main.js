@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Axios from 'axios'
 import scrollLoad from 'vue-infinite-scroll'
+import lazyload from 'vue-lazyload'
 
 import App from '@/app'
 import index from '@/components/index'
@@ -11,6 +12,10 @@ import signin from '@/components/signin'
 
 Vue.use(Router)
 Vue.use(scrollLoad)
+Vue.use(lazyload,{
+  loading:'/static/loading.svg',
+  attempt:5000
+})
 Vue.prototype.$http = Axios
 
 Vue.config.productionTip = false
@@ -22,6 +27,7 @@ const router = new Router({
     {path: '/index.html', component: index},
     {path: '/photo', component: photo},
     {path: '/upload', component: upload,meta: { requiresAuth: true }},
+    {path: '/upload/:id', component: upload,meta: { requiresAuth: true }},
     {path: '/signin', component: signin,meta: { alreadyIn: true }},
     {path: '*', component: photo}
   ]

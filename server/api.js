@@ -16,16 +16,20 @@ const storage = multer.diskStorage({
 const upload = multer({ storage:storage })
 
 //获取图片
-router.get('/api/photoList', function (req, res) {
+router.get('/api/getPhotos', function (req, res) {
   let page = parseInt(req.query.page)
   let pages = parseInt(req.query.pages)
+  let id = req.query.picId
   let labels = req.query.labels
-  let label = {}
   let skips = (page-1)*pages
-  if(labels!==""){
-    label = {"labels":labels}
+  let photos
+  if(id !==""){
+    photos = db.photos.find({"_id":id})
+  }else if(labels!==""){
+    photos = db.photos.find({"labels":labels}).sort({_id: -1}).skip(skips).limit(pages)
+  }else{
+    photos = db.photos.find({}).sort({_id: -1}).skip(skips).limit(pages)
   }
-  let photos = db.photos.find(label).sort({_id: -1}).skip(skips).limit(pages)
   photos.exec(function (err, docs) {
     if (err) {
       console.error(err)
@@ -38,7 +42,6 @@ router.get('/api/photoList', function (req, res) {
 //保存图片并把信息写入数据库
 router.post('/api/savePic',upload.single('file'),function (req, res) {
   let picInfo = req.body
-  picInfo.labels = []
   picInfo.path = req.file.filename
   new db.photos(picInfo).save(function (err) {
     if (err) {
@@ -46,6 +49,27 @@ router.post('/api/savePic',upload.single('file'),function (req, res) {
       return
     }
     res.send()
+  })
+})
+//修改图片
+router.post('/api/editPic', function (req, res) {
+  let picInfo = req.body.param
+  db.photos.find({_id:picInfo._id},function(err,docs){
+    if(err){
+      res.status(500).send()
+      return
+    }
+    docs[0].title=picInfo.title
+    docs[0].date=picInfo.date
+    docs[0].color=picInfo.color
+    docs[0].labels=picInfo.labels
+    db.photos(docs[0]).save(function(err){
+      if(err){
+        res.status(500).send()
+        return
+      }
+      res.send()
+    })
   })
 })
 

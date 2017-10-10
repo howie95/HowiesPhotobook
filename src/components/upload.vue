@@ -9,7 +9,7 @@
                     </h1>
                 </div>
                 <div class="small-title">
-                    <h2>上传图片</h2>
+                    <h2>{{editText}}图片</h2>
                 </div>
             </div>
         </header>
@@ -22,10 +22,16 @@
                     <input type="text" name="date" v-model="date"><br>
                     <h3>主题颜色:</h3>
                     <input type="text" name="color" v-model="color"><br>
-                    <h3>路径:</h3>
-                    <input type="file" name="file" @change="getFile"><br>
+                    <h3>标签分类:</h3>
+                    <select name="labels" v-model="labels">
+                        <option value="人物">人物</option>
+                        <option value="风景">风景</option>
+                        <option value="杂项">杂项</option>
+                    </select>
+                    <h3 v-if="!editMode">选择图片:</h3>
+                    <input v-if="!editMode" type="file" name="file"><br>
                 </form>
-                <button @click="savePic">上传</button>
+                <button @click="savePic">{{editText}}</button>
                 <h3>{{msg}}</h3>
             </div>
         </main>
@@ -40,23 +46,56 @@ export default {
             title:'',
             date:'',
             color:'',
-            labels:[],
-            path:'',
-            file:'',
+            labels:'',
             msg:'',
+            editMode:false,
+            editText:"上传"
         }
     },
     methods:{
-        getFile:function(e){
-            this.file = e.target.files[0]
-            this.path = this.file.name
-        },
         savePic:function(){
-            let form = document.querySelector("form")
-            let param = new FormData(form)
-            this.$http.post('/api/savePic', param).then(
-                response => this.msg = "成功",
-                response => this.msg = response
+            if (this.$route.params.id){
+                let obj = {
+                    _id:this.$route.params.id,
+                    title:this.title,
+                    date:this.date,
+                    color:this.color,
+                    labels:this.labels
+                }
+                this.$http.post('/api/editPic', {param:obj}).then(
+                    response => {
+                        this.msg = "修改成功! 2秒后返回相册 "
+                        setTimeout(()=>{this.$router.push('/photo')}, 2000)
+                    },
+                    response => this.msg = response
+                )
+            }else{
+                let form = document.querySelector("form")
+                let param = new FormData(form)
+                this.$http.post('/api/savePic', param).then(
+                    response => {
+                        this.msg = "上传成功! 2秒后返回相册 "
+                        setTimeout(()=>{this.$router.push('/photo')}, 2000)
+                    },
+                    response => this.msg = response
+            )}
+        }
+    },
+    mounted(){
+        if (this.$route.params.id){
+            this.editMode=true
+            this.editText="修改"
+            let param = {
+                picId:this.$route.params.id
+            }
+            this.$http.get('/api/getPhotos',{params:param}).then(
+            response => {
+                this.title=response.data[0].title
+                this.date=response.data[0].date
+                this.color=response.data[0].color
+                this.labels=response.data[0].labels
+            },
+            response => this.msg = response
             )
         }
     }

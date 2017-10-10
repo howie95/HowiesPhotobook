@@ -1,12 +1,22 @@
 <template>
     <div>
         <main-header :isTop="isTop" :admin="admin" @labelcheck="labelcheck"></main-header>
-        <transition-group name="flip-list" tag="main">
-            <section class="photos" v-for="item in photoList" :key="item._id"><span class="phototitle">{{ item.title }}</span><span class="photodate">{{ item.date }}</span><img :src="/static/+item.path" :alt="item.title"><img src="/static/shadow_m.png" alt="shadow"></section>
+        <transition-group name="list" tag="main">
+            <section class="photos" v-for="item in photoList" :key="item._id">
+                <span :style="{color: item.color}" class="phototitle">{{ item.title }}</span>
+                <span class="photodate">{{ item.date }}</span>
+                <img v-lazy="/static/+item.path" :alt="item.title">
+                <div v-if="admin" class="edit">
+                    <span>
+                        <a @click="picEdit(item._id)">编辑</a><a href="javascript:;">删除</a>
+                    </span>
+                </div>
+                <img src="/static/shadow_m.png" alt="shadow">
+            </section>
         </transition-group>
-        <div v-if="noMore" v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="50">
+        <div v-if="!noMore" v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="50">
             加载中</div>
-        <div v-if="!noMore">已经没有更多照片了</div>
+        <div v-if="noMore">已经没有更多照片了</div>
         <main-footer :isTop="isTop" :admin="admin"></main-footer>
     </div>
 </template>
@@ -22,7 +32,7 @@ export default {
             page:1,
             pages:6,
             busy:true,
-            noMore:true,
+            noMore:false,
             admin:false,
             label:''
         }
@@ -43,17 +53,18 @@ export default {
             let param = {
                 page:this.page,
                 pages:this.pages,
-                labels:this.label
+                labels:this.label,
+                picId:""
             }
-            this.$http.get('/api/photoList',{params:param}).then(
+            this.$http.get('/api/getPhotos',{params:param}).then(
             response => {
                 if(e){
                     this.photoList = this.photoList.concat(response.data)
                     if(response.data.length==0||response.data.length<6){
                         this.busy=true
-                        this.noMore=false
+                        this.noMore=true
                     }else{
-                        this.busy=false
+                        setTimeout(()=>{this.busy = false}, 1000)
                     }
                 }else{
                     this.photoList = response.data
@@ -66,6 +77,7 @@ export default {
         },
         //滚动加载图片
         loadMore(){
+            this.busy=true
             this.page++
             setTimeout(()=>{
                 this.getPhotos(true)
@@ -73,11 +85,15 @@ export default {
         },
         //标签筛选
         labelcheck(e){
+            this.busy=true
             this.page=1
-            this.noMore=true
+            this.noMore=false
             this.label=e
             this.getPhotos()
-            setTimeout(()=>{this.busy = false}, 2000)
+        },
+        //修改照片信息
+        picEdit(e){
+            this.$router.push('/upload/' + e)
         }
     },
     mounted: function(){
