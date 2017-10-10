@@ -29,16 +29,43 @@ h1 {
     overflow: hidden;
     transition: 1s ease-out;
 }
-#titlepic {
-    margin-left: 100px;
-    top: 52%;
-    transform: translateY(-50%);
+.shadow {
     position: absolute;
+    margin-left: 100px;
+    top: 50%;
+    transform: translateY(+305px);
+}
+#titlepic {
+    position: absolute;
+    margin-left: 100px;
+    top: 50%;
+    transform: translateY(-50%);
     width: 900px;
-    height: auto;
+    height: 600px;
+    overflow: hidden;
+}
+#titlepic div{
+    position: absolute;
 }
 #titlepic img {
-    width: 100%;
+    width: 900px;
+}
+.index-enter-active {
+    transform: translateX(0);
+    transition: all 1s ease;
+  }
+  
+  .index-leave-active {
+    transform: translateX(-100%);
+    transition: all 1s ease;
+  }
+  
+  .index-enter {
+    transform: translateX(100%);
+  }
+  
+  .index-leave {
+    transform: translateX(0);
 }
 #titlebox {
     width: 500px;
@@ -50,6 +77,18 @@ h1 {
     background-color: #638C9E;
     position: relative;
     text-align: center;
+    transition: 1s ease;
+}
+#titlebox .titlecolor {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    background-color:yellow;
+    z-index: 1;
+}
+#titlehowie ,#titleh1 ,#titlespan{
+    z-index: 2;
 }
 #titlehowie .howie {
     width: 400px;    
@@ -100,7 +139,8 @@ h1 {
     border-radius: 2px;
     color: #638C9E;
     background-color: white;
-    animation: titleIn 1s ease-out 2.5s backwards;    
+    animation: titleIn 1s ease-out 2.5s backwards;   
+    transition: 1s ease; 
 }
 #titlespan a:hover{
     opacity: 0.9;
