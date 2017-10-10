@@ -38,7 +38,6 @@ router.get('/api/getPhotos', function (req, res) {
     res.json(docs)
   })
 })
-
 //保存图片并把信息写入数据库
 router.post('/api/savePic',upload.single('file'),function (req, res) {
   let picInfo = req.body
@@ -53,16 +52,15 @@ router.post('/api/savePic',upload.single('file'),function (req, res) {
 })
 //修改图片
 router.post('/api/editPic', function (req, res) {
-  let picInfo = req.body.param
-  db.photos.find({_id:picInfo._id},function(err,docs){
+  db.photos.find({_id:req.body._id},function(err,docs){
     if(err){
       res.status(500).send()
       return
     }
-    docs[0].title=picInfo.title
-    docs[0].date=picInfo.date
-    docs[0].color=picInfo.color
-    docs[0].labels=picInfo.labels
+    docs[0].title=req.body.title
+    docs[0].date=req.body.date
+    docs[0].color=req.body.color
+    docs[0].labels=req.body.labels
     db.photos(docs[0]).save(function(err){
       if(err){
         res.status(500).send()
@@ -70,6 +68,16 @@ router.post('/api/editPic', function (req, res) {
       }
       res.send()
     })
+  })
+})
+//删除图片
+router.post('/api/delPic', function (req, res) {
+  db.photos.remove(req.body,function(err){
+    if(err){
+      res.status(500).send()
+      return
+    }
+    res.send()
   })
 })
 

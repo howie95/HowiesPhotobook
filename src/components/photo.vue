@@ -1,15 +1,30 @@
 <template>
     <div>
         <main-header :isTop="isTop" :admin="admin" @labelcheck="labelcheck"></main-header>
+        <transition name="fade">
+        <div v-if="mask" class="mask" @click="closeMask">
+            <div class="showphoto">
+                <img :src="/static/+showPic">
+            </div>
+        </div>
+        </transition>
         <transition-group name="list" tag="main">
             <section class="photos" v-for="item in photoList" :key="item._id">
                 <span :style="{color: item.color}" class="phototitle">{{ item.title }}</span>
                 <span class="photodate">{{ item.date }}</span>
-                <img v-lazy="/static/+item.path" :alt="item.title">
-                <div v-if="admin" class="edit">
-                    <span>
-                        <a @click="picEdit(item._id)">编辑</a><a href="javascript:;">删除</a>
-                    </span>
+                <img v-lazy="/static/+item.path" :alt="item.title" @click="showphoto(item.path)">
+                <div class="edit" v-if="admin">
+                    <div class="bground" :class="{'delete':isDel==item._id,'delmsg':isDeled==item._id}">
+                        <span>
+                            <a @click="picEdit(item._id)">编辑</a><a @click="isDel=item._id">删除</a>
+                        </span>
+                        <span>
+                            <p>确定删除吗？</p><a @click="delPic(item._id)">删除</a><a @click="isDel=0">取消</a>
+                        </span>
+                        <span>
+                            <p>{{delMsg}}</p>
+                        </span>
+                    </div>
                 </div>
                 <img src="/static/shadow_m.png" alt="shadow">
             </section>
@@ -34,7 +49,13 @@ export default {
             busy:true,
             noMore:false,
             admin:false,
-            label:''
+            label:'',
+            isDel:'',
+            isDeled:'',
+            secDel:'',
+            delMsg:'',
+            mask:false,
+            showPic:''
         }
     },
     methods:{
@@ -94,6 +115,41 @@ export default {
         //修改照片信息
         picEdit(e){
             this.$router.push('/upload/' + e)
+        },
+        //删除照片
+        isdelPic(e){
+            if(e){
+                this.isDel=e
+            }else{
+                this.isDel=""
+            }
+        },
+        delPic(e){
+            let obj = {_id:e}
+            this.isDeled=e
+            this.delMsg = "删除成功"
+            this.$http.post('/api/delPic',obj).then(
+                response => {
+                    this.delMsg = "删除成功"
+                    setTimeout(()=>{this.secDel = e}, 2000)
+                },
+                response => {
+                    this.delmsg = "删除失败"
+                    setTimeout(()=>{this.isDeled=""}, 2000)
+                }
+            )
+        },
+        //查看大图
+        showphoto(e){
+            this.showPic=e
+            this.mask=true
+            document.body.style.overflow='hidden';
+            document.body.style.height='100%';
+        },
+        closeMask(){
+            this.mask=false
+            document.body.style.overflow='auto';
+            document.body.style.height='auto';
         }
     },
     mounted: function(){

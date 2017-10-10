@@ -59,6 +59,26 @@ main {
     width: 800px;
     margin: 0 auto;
 }
+.mask {
+    z-index: 999;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color:rgba(0, 0, 0, 0.6);
+}
+.mask .showphoto{
+    position: relative;
+    margin: 0 auto;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 60%;
+}
+.mask .showphoto img{
+    width: 100%;
+    border: 20px solid white;
+}
 .list-leave-active {
     position: absolute;
 }
@@ -97,6 +117,7 @@ main {
 .photos img {
     max-width: 650px;
 }
+/*编辑 删除*/
 .photos .edit {
     position: absolute;
     bottom: 58px;
@@ -104,15 +125,31 @@ main {
     height: 40px;
     overflow: hidden;
 }
+.photos .edit .bground {
+    position: relative;
+    background-color:rgba(255, 255, 255, 0.8);
+    width: 100%;
+    height: 40px;
+    transition: .3s ease-out;
+    top:40px;
+    overflow: hidden;
+}
+.photos .edit .delete {
+    background-color:rgba(255, 0, 0, 0.8);
+    top: 0;
+} 
+.photos .edit .delmsg {
+    background-color:rgba(0, 0, 0, 0.8);
+    top: 0;
+} 
 .photos .edit span {
     position: relative;
     width: 100%;
     height: 40px;
-    background-color:rgba(255, 255, 255,0.8);
-    top:40px;
+    top: 0;
     transition: .3s ease-out;
 }
-.photos:hover .edit span {
+.photos:hover .edit .bground {
     top:0;
 }
 .photos .edit span a{
@@ -125,10 +162,31 @@ main {
     color: #ac6767;
     margin: 0px 10px;
     transition: .3s ease-out;
+    cursor:pointer;
 }
 .photos .edit span a:hover{
     background-color:rgba(219, 126, 126, 0.2);
 }
+.photos .edit .delete span{
+    top: -40px;
+}
+.photos .edit .delmsg span{
+    top: -80px;
+}
+.photos .edit .delete span a{
+    color: white;
+}
+.photos .edit .delete span a:hover{
+    background-color:rgba(41, 0, 0, 0.4);
+}
+.photos .edit span p {
+    display: inline-block;
+    margin: 0 50px;
+    font-size: 20px;
+    color: white;
+    line-height: 40px;
+}
+/*-----*/
 .loading {
     width: 650px;
     height: 650px;
@@ -196,7 +254,7 @@ main {
 .fade-enter-active, .fade-leave-active {
     transition: opacity .8s ease-out
   }
-.fade-enter, .fade-leave-to /* .fade-leave-active in below version 2.1.8 */ {
+.fade-enter, .fade-leave-to {
     opacity: 0
 }
 .foot-bts ul li {

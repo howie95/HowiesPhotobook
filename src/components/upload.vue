@@ -62,7 +62,7 @@ export default {
                     color:this.color,
                     labels:this.labels
                 }
-                this.$http.post('/api/editPic', {param:obj}).then(
+                this.$http.post('/api/editPic',obj).then(
                     response => {
                         this.msg = "修改成功! 2秒后返回相册 "
                         setTimeout(()=>{this.$router.push('/photo')}, 2000)
