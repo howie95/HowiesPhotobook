@@ -1,5 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 231.43 201.67">
 <defs><style>
+svg{
+    padding:5px;
+    width:100px;
+    height:100px;
+}
 .loading {
     fill: none;
     fill-rule: evenodd;

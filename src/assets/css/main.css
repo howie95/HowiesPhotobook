@@ -186,40 +186,66 @@ main {
     color: white;
     line-height: 40px;
 }
-/*-----*/
+/*三栏布局*/
+.three {
+    column-count: 3;
+}
+.three .photos{
+    width: 100%;
+    margin: 0;
+}
+.three .photos span{
+    float: none;
+}
+.three .photos img {
+    width: 100%;
+}
+.three .photos .edit{
+    bottom: 28px;
+}
+/*页底加载部分*/
 .loading {
-    width: 650px;
-    height: 650px;
-    background-color:#fef9f5;
+    width: 400px;
+    margin: 0 auto;
+    text-align: center;
+    margin-bottom: 50px;
 }
-.loading svg {
-    position: relative;
-    top: 45%;
-    padding: 10px;
-    width: 50px;
+.loading p{
+    margin: 0;
+    font-size: 15px;
+    color: #a89d9d;
 }
-.loading path {
+.loading svg{
+    padding:3px;
+    width:30px;
+    height:30px;
+}
+.loading svg path {
     fill: none;
     fill-rule: evenodd;
     stroke: #dfd2d2;
     stroke-linecap: round;
-    stroke-width:20px;
+    stroke-width:25px;
     animation: loading 2s ease-out infinite alternate;    
 }
 @keyframes loading {
     0% {
-        stroke-dasharray: 0, 500;
+        opacity:0;
+        stroke-dasharray: 0, 600;
     }
     100% {
-        stroke-dasharray: 500, 500;
+        opacity:1;
+        stroke-dasharray: 600, 600;
     }
 }
+
+/*-----*/
 
 .downpage {
     position: fixed;
     width: 250px;
     bottom: 100px;
-    left: 100px;
+    left: 70px;
     animation: headerfade 0.8s ease-out;
 }
 @keyframes headerfade {
@@ -249,7 +275,7 @@ main {
 .foot-bts {
     position: fixed;
     bottom: 100px;
-    right: 350px;
+    right: 300px;
 }
 .fade-enter-active, .fade-leave-active {
     transition: opacity .8s ease-out

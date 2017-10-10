@@ -11,9 +11,9 @@
             <div class="header-nav">
                 <nav>
                     <ul>
-                        <li><a @click="checkThis('人物')" v-bind:class="{'checked':labelcheck=='人物'}">人物</a></li>
-                        <li><a @click="checkThis('风景')" v-bind:class="{'checked':labelcheck=='风景'}">风景</a></li>
-                        <li><a @click="checkThis('杂项')" v-bind:class="{'checked':labelcheck=='杂项'}">杂项</a></li>
+                        <li><a @click="checkThis('人物')" :class="{'checked':labelcheck=='人物'}">人物</a></li>
+                        <li><a @click="checkThis('风景')" :class="{'checked':labelcheck=='风景'}">风景</a></li>
+                        <li><a @click="checkThis('杂项')" :class="{'checked':labelcheck=='杂项'}">杂项</a></li>
                         <li><a>日期索引</a></li>
                         <li><a>版权说明</a></li>
                         <li><router-link v-if="admin" to="/upload">上传图片</router-link></li>
