@@ -53,18 +53,18 @@ h1 {
 .index-enter-active {
     transform: translateX(0);
     transition: all 1s ease;
-  }
-  
-  .index-leave-active {
+}
+
+.index-leave-active {
     transform: translateX(-100%);
     transition: all 1s ease;
-  }
-  
-  .index-enter {
+}
+
+.index-enter {
     transform: translateX(100%);
-  }
-  
-  .index-leave {
+}
+
+.index-leave {
     transform: translateX(0);
 }
 #titlebox {
