@@ -286,6 +286,7 @@ main {
 .foot-bts ul li {
     list-style: none;
     margin: 10px 0;
+    cursor: pointer;
 }
 .foot-bts svg {
     width: 20px;
