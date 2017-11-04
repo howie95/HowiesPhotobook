@@ -26,7 +26,6 @@
                         </span>
                     </div>
                 </div>
-                <img src="../assets/img/shadow_m.png" alt="shadow">
             </section>
         </transition-group>
         <div class="loading">

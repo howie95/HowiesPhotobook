@@ -1,0 +1,124 @@
+@keyframes fade {
+    from{opacity: 0}
+    to{opacity: 1}
+}
+
+#titlearea {
+    position: fixed;
+    z-index: -1;
+    width: 100%;
+    height: 100vh;
+    background-image: url(../../static/titlebg.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: auto 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: .5s;
+}
+#titlearea span {
+    font-weight: 300;
+    position: relative;
+    top: 20%;
+    font-size: 3rem;
+    color: #6f8e8e;
+}
+
+#mainarea .blankspace {
+    width: 100%;
+    height: 100vh;
+}
+#mainarea .logoarea {
+    z-index: 2;
+    display: block;
+    position: absolute;
+    top: 100vh;
+    width: 100%;
+    height: 15rem;
+}
+#mainarea .logoareafix {
+    position: fixed;
+    top: 0;
+    animation: fade .5s;
+}
+#mainarea .logoarea .blankspace {
+    height: 5rem;
+}
+#mainarea .logoarea .logo {
+    width: 100%;
+    height: 10rem;
+    background-color: black;
+}
+
+h1 {
+    font-size: 10rem;
+    text-align: center;
+    margin: 0;
+}
+h2 {
+    font-size: 3rem;
+    text-align: center;
+    margin-top: 5rem;
+}
+h3 {
+    font-size: 2.5rem;
+    margin:0;
+}
+p {
+    font-size: 2.5rem;
+    margin-top: 1rem;
+}
+section {
+    position: relative;
+}
+.content1 {
+    margin-top: 15rem;
+    padding-top: 15rem;
+    width: 100%;
+    height: 200rem;
+    background-color: white;
+}
+.content1 h1 {
+    color: #677f88;
+}
+.content1 h2 {
+    color: #677f88;
+}
+.content1 h3 {
+    color: #677f88;
+}
+.content1 p {
+    color: #7faab9; 
+}
+.content1 .vertical {
+    position: absolute;
+}
+.content1 .section1 .pic1 {
+    width: 50rem;
+    left: 20rem;
+    top: 10rem;
+}
+.content1 .section1 .pic2 {
+    width: 40rem;
+    right: 20rem;
+    top: 50rem;
+}
+.content1 .section1 .info {
+    position: absolute;
+    width: 50rem;
+    top: 25rem;
+    right: 20rem;
+}
+
+.content2 {
+    width: 100%;
+    height: 70rem;
+    background-color: rgb(230, 116, 116);
+}
+
+.content3 {
+    width: 100%;
+    height: 70rem;
+    background-color: rgb(92, 104, 155);
+}

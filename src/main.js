@@ -24,11 +24,11 @@ const router = new Router({
   mode: 'history',
   routes: [
     {path: '/', component: index},
-    {path: '/photo', component: photo},
+    //{path: '/photo', component: photo},
     {path: '/upload', component: upload,meta: { requiresAuth: true }},
     {path: '/upload/:id', component: upload,meta: { requiresAuth: true }},
     {path: '/signin', component: signin,meta: { alreadyIn: true }},
-    {path: '*', component: photo}
+    //{path: '*', component: photo}
   ]
 })
 
@@ -40,22 +40,22 @@ router.beforeEach((to, from, next) => {
               path: '/signin',
           })
       } else {
-          next()
+        Axios.post('/api/checkLog').then(
+          response => {
+            let res = response.data
+            if(res.status=="0"){
+              next()
+            }else if(res.status=="2"){
+              next({
+                  path: '/signin',
+              })
+            }
+          },
+          response => {return}
+        )
       }
   } else {
-    this.$http.post('/api/checkLog').then(
-      response => {
-        let res = response.data
-        if(res.status=="0"){
-          next()
-        }else if(res.status=="2"){
-          next({
-              path: '/signin',
-          })
-        }
-      },
-      response => {return}
-    )
+    next()
   }
   if (to.meta.alreadyIn) {
     if (document.cookie.match("admin")) {
