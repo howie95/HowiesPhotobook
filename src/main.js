@@ -24,7 +24,6 @@ const router = new Router({
   mode: 'history',
   routes: [
     {path: '/', component: index},
-    {path: '/index.html', component: index},
     {path: '/photo', component: photo},
     {path: '/upload', component: upload,meta: { requiresAuth: true }},
     {path: '/upload/:id', component: upload,meta: { requiresAuth: true }},
@@ -44,7 +43,19 @@ router.beforeEach((to, from, next) => {
           next()
       }
   } else {
-    next()
+    this.$http.post('/api/checkLog').then(
+      response => {
+        let res = response.data
+        if(res.status=="0"){
+          next()
+        }else if(res.status=="2"){
+          next({
+              path: '/signin',
+          })
+        }
+      },
+      response => {return}
+    )
   }
   if (to.meta.alreadyIn) {
     if (document.cookie.match("admin")) {

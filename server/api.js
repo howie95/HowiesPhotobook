@@ -105,6 +105,18 @@ router.post('/api/signUp',function (req, res) {
     res.send()
   })
 })
+//管理员检测
+router.post('/api/checkLog',function (req, res) {
+  if(req.session.user){
+      res.json({
+          status:"0",
+      })
+  }else{
+      res.json({
+          status:"2",
+      })
+  }
+})
 //管理员登陆
 router.post('/api/signIn',function (req, res) {
   db.admins.findOne(req.body,function(err,doc){
@@ -118,6 +130,7 @@ router.post('/api/signIn',function (req, res) {
           path:'/',
           maxAge:1000*60*60*2
         })
+        req.session.user = doc.name
         res.json({
           status:"0",
           result:{
@@ -138,6 +151,7 @@ router.post('/api/signout',function (req, res) {
     path:'/',
     maxAge:-1
   })
+  req.session.user = null
   res.json({
     status:"0"
   })

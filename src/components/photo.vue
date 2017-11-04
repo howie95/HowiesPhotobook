@@ -174,8 +174,17 @@ export default {
         if (!document.cookie.match("admin")){
             this.admin = false
         }else{
-            this.admin = true
-        }
+            this.$http.post('/api/checkLog').then(
+                response => {
+                    let res = response.data
+                    if(res.status=="0"){
+                        this.admin = true
+                    }else if(res.status=="2"){
+                        this.admin = false
+                    }
+                },
+                response => {return}
+            )}
     },
     components:{
         mainHeader,
