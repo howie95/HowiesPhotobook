@@ -2,7 +2,9 @@
     from{opacity: 0}
     to{opacity: 1}
 }
-
+@keyframes intro {
+    to{transform: translateY(-5rem)}
+}
 #titlearea {
     position: fixed;
     z-index: -1;
@@ -42,13 +44,32 @@
     top: 0;
     animation: fade .5s;
 }
+#mainarea .logoareafix .logo {
+    background-color: white !important;
+    animation: intro 1s 4s;
+    animation-fill-mode: forwards;
+}
+#mainarea .logoareafix .ontop {
+    position: relative;
+    transition: 1s 4s;
+    top: 0;
+}
+#mainarea .logoareafix .ontop:hover {
+    top: 5rem;
+    transition: .5s;
+}
 #mainarea .logoarea .blankspace {
     height: 5rem;
 }
 #mainarea .logoarea .logo {
     width: 100%;
     height: 10rem;
-    background-color: black;
+    background-color: #fbfbf2;
+    display: flex;
+    justify-content: center;
+}
+#mainarea .logoarea .logo img {
+    width: 20rem;
 }
 
 h1 {
@@ -62,12 +83,12 @@ h2 {
     margin-top: 5rem;
 }
 h3 {
-    font-size: 2.5rem;
+    font-size: 2.3rem;
     margin:0;
 }
 p {
-    font-size: 2.5rem;
-    margin-top: 1rem;
+    font-size: 2.3rem;
+    margin-top: 2rem;
 }
 section {
     position: relative;
@@ -76,8 +97,7 @@ section {
     margin-top: 15rem;
     padding-top: 15rem;
     width: 100%;
-    height: 200rem;
-    background-color: white;
+    background-color: #fbfbf2;
 }
 .content1 h1 {
     color: #677f88;
@@ -91,8 +111,11 @@ section {
 .content1 p {
     color: #7faab9; 
 }
-.content1 .vertical {
+section img {
     position: absolute;
+}
+.content1 .section1{
+    height: 120rem;
 }
 .content1 .section1 .pic1 {
     width: 50rem;
@@ -106,19 +129,128 @@ section {
 }
 .content1 .section1 .info {
     position: absolute;
-    width: 50rem;
-    top: 25rem;
+    width: 45rem;
+    padding: 5rem 6rem;
+    top: 20rem;
     right: 20rem;
+    background-color: white;
+}
+.content1 .section2 {
+    width: 100%;  
+    height: 150rem;  
+}
+.content1 .section2 .pic1 {
+    position: absolute;
+    right: 40rem;
+    bottom: 20rem;
+    width: 80rem;
+}
+.content1 .section2 .pic2 {
+    position: absolute;
+    left: 20rem;
+    top: -20rem;
+    width: 60rem;
+}
+.content1 .section2 .info {
+    position: absolute;
+    right: 20rem;
+    top: 10rem;
+    width: 50rem;
+}
+.content1 .section2 .info p {
+    font-size: 2.5rem;
 }
 
 .content2 {
     width: 100%;
-    height: 70rem;
-    background-color: rgb(230, 116, 116);
+    background-color: #231917;
+}
+.content2 .jessi {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    background-image: url(../../static/jessi1.jpg);
+    background-repeat: no-repeat;
+    background-attachment:fixed;
+    background-position: 0 10rem;
+    background-size: 100% auto;
+    color: white;
+}
+.content2 .section1 {
+    height: 150rem;
+}
+.content2 .section1 .pic1 {
+    width:80rem; 
+    left: 20rem;
+    top: 20rem;
+}
+.content2 .section1 .info {
+    position: absolute;
+    width: 20rem;
+    padding: 5rem 6rem;
+    bottom: 20rem;
+    right: 20rem;
+    background-color: white;
+    color: #be8758;
+}
+.content2 .section2 {
+    height: 130rem;
+}
+.content2 .section2 .pic1 {
+    top: 20rem;
+    width: 70rem;
+    left: 10rem;
+}
+.content2 .section2 .pic2 {
+    top: 5rem;
+    width: 50rem;
+    right: 10rem;
 }
 
 .content3 {
     width: 100%;
-    height: 70rem;
-    background-color: rgb(92, 104, 155);
+    height: 300vh;
+    background-color: white;
+}
+.content3 .other {
+    width: 100%;
+    height: 50rem;
+    background-image: url(../../static/other.jpg);
+    background-repeat: no-repeat;
+    background-attachment:fixed;
+    background-position: 0 -10rem;
+    background-size: 100% auto;
+}
+.content3 h1 {
+    position: relative;
+    width: 60rem;
+    top: 5rem;
+    left: 90rem;
+    line-height: 5rem;
+    font-size: 5rem;
+}
+
+footer {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-color: #d3dbff;
+}
+footer p {
+    color: #4e7992;
+    margin: 0;
+}
+footer .poem {
+    position: absolute;
+    width: 100%;
+    top: 20rem;
+    text-align: center;
+}
+footer .copyright{
+    width: 100%;
+    position: absolute;
+    bottom: 5rem;
+    text-align: center;
 }

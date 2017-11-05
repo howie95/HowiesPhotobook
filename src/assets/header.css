@@ -5,12 +5,23 @@ header {
     top: 0;
     width: 100%;
     background-color: white;
+    animation: intro 1s 4s;
+    animation-fill-mode: forwards;
+    transition: 1s 4s;
+}
+@keyframes intro {
+    to{transform: translateY(-5rem)}
+}
+.headerhover {
+    top: 5rem;
+    transition: .5s;
 }
 header nav {
     height: 5rem;
 }
 header nav ul {
     width: 70%;
+    padding: 0;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
