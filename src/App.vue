@@ -1,6 +1,6 @@
 <template>
   <div>
-    <main-header v-if="ontop"></main-header>
+    <main-header v-show="ontop"></main-header>
     <router-view></router-view>
   </div>
 </template>

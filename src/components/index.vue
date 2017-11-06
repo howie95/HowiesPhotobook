@@ -45,16 +45,31 @@
                     <img class="pic1" src="../../static/jessi3.jpg">
                     <img class="pic2" src="../../static/jessi4.jpg">
                 </section>
+                <section class="section3">
+                    <img class="pic1" src="../../static/jessi5.jpg">
+                    <div class="info">
+                        <p>Jessi's Instagram : jessi_or_jay</p>
+                    </div>
+                </section>
             </div>
             <div class="content3">
                 <div class="other"></div>
-                <h1>所有生物都有美丽的灵魂</h1>
+                <div id="poemcontent">
+                    <h3>《活在这珍贵的人间》</h3>
+                    <p>活在这珍贵的人间<br>太阳强烈<br>水波温柔<br>一层层白云覆盖着<br>我踩在青草上<br>感到自己是彻底干净的黑土块<br><br>活在这珍贵的人间<br>泥土高溅<br>扑打面颊<br>活在这珍贵的人间<br>人类和植物一样幸福<br>爱情和雨水一样幸福<br>- 海子</p>
+                </div>
+                <section id="poem" class="section1">
+                    <img class="pic1" src="../../static/other1.jpg">
+                </section>
+                <section class="section2">
+                    <img class="pic1" src="../../static/other2.jpg">
+                </section>
+                <section class="section3">
+                    <img class="pic1" src="../../static/other3.jpg">
+                </section>
             </div>
         </div>
         <footer>
-            <div class="poem">
-                <p>活在这珍贵的人间<br>太阳强烈<br>水波温柔<br>一层层白云覆盖着<br>我踩在青草上<br>感到自己是彻底干净的黑土块<br><br>活在这珍贵的人间<br>泥土高溅<br>扑打面颊<br>活在这珍贵的人间<br>人类和植物一样幸福<br>爱情和雨水一样幸福<br>- 海子</p>
-            </div>
             <div class="copyright">
                 <p>人间太美好 2017</p>
             </div>
@@ -69,42 +84,51 @@ export default {
     data(){
         return{
             opacity:1,
-            ontop:false,
         }
     },
     methods:{
         hoverlogo(){
-            if(this.ontop == true){
-                event.$emit('hover')
-            }
+            event.$emit('hover')
         },
         leavelogo(){
             event.$emit('leave')
         },
-        titlearea(){
-            let clientHeight = document.getElementById('titlearea').clientHeight
-            let scrollTop = document.getElementsByTagName('html')[0].scrollTop
-            if(scrollTop<clientHeight){
-                this.opacity = (1 - (scrollTop/clientHeight))
+        scrollfn(){
+            console.log('11')
+            let poem = document.getElementById('poem')
+            let poemcontent = document.getElementById('poemcontent')
+            let sections = document.getElementsByTagName('section')
+            let titleheight = document.getElementById('titlearea').clientHeight
+            let htmlscrolltop = document.getElementsByTagName('html')[0].scrollTop
+            let htmlheight = document.getElementsByTagName('html')[0].clientHeight
+            if(htmlscrolltop<titleheight){
+                this.opacity = (1 - (htmlscrolltop/titleheight))
                 document.getElementsByClassName('logoarea')[0].classList.remove('logoareafix')
                 document.getElementsByClassName('logo')[0].classList.remove('ontop')
                 event.$emit('hide')
             }
-            if(scrollTop>clientHeight){
+            if(htmlscrolltop>titleheight){
                 document.getElementsByClassName('logoarea')[0].classList.add('logoareafix')
                 event.$emit('show')
                 setTimeout(()=>{
                     document.getElementsByClassName('logo')[0].classList.add('ontop')
-                    this.ontop=true
                 },4000)
             }
+            for(let i = 0;i<sections.length;i++){
+                if(sections[i].offsetTop < htmlheight+htmlscrolltop){
+                    sections[i].style.opacity = 1
+                }
+            }
+            if(poem.offsetTop < htmlheight+htmlscrolltop){
+                poemcontent.style.opacity = 1
+            }else{poemcontent.style.opacity = 0}
         }
     },
     mounted(){
         if (document.addEventListener) {
-            document.addEventListener('DOMMouseScroll', this.titlearea, false);  
+            document.addEventListener('scroll', this.scrollfn, false);  
         }  
-        window.onmousewheel = document.onmousewheel = this.titlearea; 
+        window.onscroll = this.scrollfn; 
     }
 }
 </script>
