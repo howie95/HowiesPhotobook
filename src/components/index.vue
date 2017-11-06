@@ -128,13 +128,13 @@ export default {
                 document.getElementById('titlearea').style.opacity = 1
                 document.getElementsByClassName('logoarea')[0].classList.remove('logoareafix')
                 document.getElementsByClassName('logo')[0].classList.remove('ontop')
-                event.$emit('hide')
+                document.getElementsByTagName('header')[0].style.display = 'none'
                 this.ontop = false
             }
             if(htmlscrolltop>titleheight){
                 document.getElementById('titlearea').style.opacity = 0
                 document.getElementsByClassName('logoarea')[0].classList.add('logoareafix')
-                event.$emit('show')
+                document.getElementsByTagName('header')[0].style.display = 'block'
                 setTimeout(()=>{
                     document.getElementsByClassName('logo')[0].classList.add('ontop')
                     this.ontop = true

@@ -8,6 +8,7 @@ header {
     animation: intro 1s 4s;
     animation-fill-mode: forwards;
     transition: 1s 4s;
+    display: none;
 }
 @keyframes intro {
     to{transform: translateY(-5rem)}

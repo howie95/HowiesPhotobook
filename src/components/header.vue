@@ -21,7 +21,6 @@ export default {
   },
   methods:{
       about(){
-          console.log('11')
           event.$emit('about')
       }
   },

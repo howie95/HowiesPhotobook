@@ -1,27 +1,19 @@
 <template>
   <div>
-    <main-header v-show="ontop"></main-header>
+    <main-header></main-header>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-import event from './components/event.js'
 import mainHeader from '@/components/header'
   export default {
     name: 'app',
     data(){
       return{
-        ontop:false,
       }
     },
     mounted(){
-      event.$on('show',()=>{
-          this.ontop = true
-      })
-      event.$on('hide',()=>{
-          this.ontop = false
-      })
     },
     components:{mainHeader}
   }
