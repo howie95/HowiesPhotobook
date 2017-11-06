@@ -1,6 +1,6 @@
 header {
     font-weight: 300;
-    z-index: 1;
+    z-index: 3;
     position: fixed;
     top: 0;
     width: 100%;
@@ -29,6 +29,13 @@ header nav ul {
 header nav ul li{
     display: inline-block;
     list-style: none;
+    font-size: 1.8rem;
+    line-height: 5rem;
+    color: #6f8e8e;
+    cursor: pointer;
+}
+header nav ul li a{
+    text-decoration: none;
     font-size: 1.8rem;
     line-height: 5rem;
     color: #6f8e8e;

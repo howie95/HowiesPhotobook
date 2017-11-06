@@ -5,6 +5,30 @@
 @keyframes intro {
     to{transform: translateY(-5rem)}
 }
+.fade-enter-active,.fade-leave-active{
+    transition: all 1s;
+}
+.fade-enter{
+    opacity: 0;
+}
+.fade-leave-to{
+    opacity: 0;
+}
+.loading {
+    width: 100%;
+}
+.loading #titlearea {
+    z-index: 999 !important;
+    background-size: auto 110% !important;
+}
+.loading #titlearea .loadbar {
+    width: 23rem;
+    opacity: 1;
+}
+.loading #titlearea .loadwhite {
+    background-color: white;
+    opacity: 1;
+}
 #titlearea {
     position: fixed;
     z-index: -1;
@@ -15,9 +39,10 @@
     background-position: center;
     background-size: auto 80%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    transition: .5s;
+    transition: 2s;
 }
 #titlearea span {
     font-weight: 300;
@@ -26,13 +51,65 @@
     font-size: 3rem;
     color: #6f8e8e;
 }
+#titlearea .loadbar {
+    opacity: 0;
+    margin-top: 5px;
+    display: block;
+    height: 2px;
+    background-color: #6f8e8e;
+    transition: 1s;
+}
+#titlearea .loadwhite {
+    z-index: -1;
+    position: absolute;
+    opacity: 0;
+    transition: 2s;
+    width: 100%;
+    height: 100vh;
+}
+#aboutarea {
+    z-index: 999;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#aboutarea .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 60rem;
+    height: 50rem;
+}
+#aboutarea .content img {
+    width: 20rem;
+}
+#aboutarea .content p {
+    color: #6f8e8e;
+    font-size: 2rem;
+    margin: 0.5rem 0;
+}
+#aboutarea .content a {
+    text-decoration: none;
+    border-bottom: #6f8e8e 1px dashed;
+}
+#aboutarea .content span {
+    cursor: pointer;
+    color: #6f8e8e;
+    margin-top: 1rem;
+    font-size: 4rem;
+}
 
 #mainarea .blankspace {
     width: 100%;
     height: 100vh;
 }
 #mainarea .logoarea {
-    z-index: 2;
+    z-index: 1;
     display: block;
     position: absolute;
     top: 100vh;
@@ -284,9 +361,17 @@ footer {
     height: 100vh;
     background-color: #d3dbff;
 }
-footer p {
+footer h3 {
     color: #4e7992;
     margin: 0;
+}
+footer p {
+    font-size: 0.5rem;
+    color: #79a5be;
+    margin-top: 0.5rem;
+}
+footer a {
+    text-decoration: none;
 }
 footer .poem {
     position: absolute;

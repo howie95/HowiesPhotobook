@@ -2,9 +2,9 @@
     <header>
         <nav>
             <ul>
-                <li>博客 / Blog</li>
+                <li><a href="https://howie95.com/blog/" target="_blank">博客 / Blog</a></li>
                 <li>图集 / Photos</li>
-                <li>关于 / About</li>
+                <li @click="about">关于 / About</li>
             </ul>
         </nav>
     </header>
@@ -17,6 +17,12 @@ export default {
   data(){
       return{
           labelcheck:''
+      }
+  },
+  methods:{
+      about(){
+          console.log('11')
+          event.$emit('about')
       }
   },
   mounted(){

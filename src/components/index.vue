@@ -1,8 +1,26 @@
 <template>
-    <div>
-        <div id="titlearea" :style="{opacity:opacity}">
+    <div class="loading">
+        <div id="titlearea">
             <span>人 间 太 美 好 。</span>
+            <span class="loadbar" :style="{width:loadbar+'rem'}"></span>
+            <div class="loadwhite"></div>
         </div>
+        <transition name="fade">
+            <div id="aboutarea" v-show="showabout">
+                <div class="content">
+                    <img src="../assets/eyelogo.svg" alt="LOGO">
+                    <p>喜欢摄影，水平有限</p>
+                    <p>但还是愿意把自己喜欢的照片分享出来</p>
+                    <p>手头只有一台PENTAX K-50</p>
+                    <p>希望以后赚了钱可以买一台更好的相机</p>
+                    <p>如果想了解更多，可以看看</p>
+                    <a href="https://howie95.com/about.html" target="_blank"><p>我的个人介绍</p></a>
+                    <a href="https://howie95.com/blog/" target="_blank"><p>我的个人博客</p></a>
+                    <p>- Howie's - </p>
+                    <span @click="about(false)">X</span>
+                </div>
+            </div>
+        </transition>
         <div id="mainarea">
             <div class="blankspace"></div>
             <div class="logoarea">
@@ -71,7 +89,10 @@
         </div>
         <footer>
             <div class="copyright">
-                <p>人间太美好 2017</p>
+                <h3>人间太美好</h3>
+                <p>未经允许禁止转载</p>
+                <p>Copyright © Howie95.com All Rights Reserved.</p>
+                <a href="https://github.com/howie95/howiesphotobook"><p>Git this program.</p></a>
             </div>
         </footer>
     </div>
@@ -83,18 +104,20 @@ export default {
     name:'index',
     data(){
         return{
-            opacity:1,
+            showabout:false,
+            ontop:false,
+            imgs:[],
+            loadbar:0,
         }
     },
     methods:{
         hoverlogo(){
-            event.$emit('hover')
+            if(this.ontop == true){event.$emit('hover')}
         },
         leavelogo(){
-            event.$emit('leave')
+            if(this.ontop == true){event.$emit('leave')}
         },
         scrollfn(){
-            console.log('11')
             let poem = document.getElementById('poem')
             let poemcontent = document.getElementById('poemcontent')
             let sections = document.getElementsByTagName('section')
@@ -102,16 +125,19 @@ export default {
             let htmlscrolltop = document.getElementsByTagName('html')[0].scrollTop
             let htmlheight = document.getElementsByTagName('html')[0].clientHeight
             if(htmlscrolltop<titleheight){
-                this.opacity = (1 - (htmlscrolltop/titleheight))
+                document.getElementById('titlearea').style.opacity = 1
                 document.getElementsByClassName('logoarea')[0].classList.remove('logoareafix')
                 document.getElementsByClassName('logo')[0].classList.remove('ontop')
                 event.$emit('hide')
+                this.ontop = false
             }
             if(htmlscrolltop>titleheight){
+                document.getElementById('titlearea').style.opacity = 0
                 document.getElementsByClassName('logoarea')[0].classList.add('logoareafix')
                 event.$emit('show')
                 setTimeout(()=>{
                     document.getElementsByClassName('logo')[0].classList.add('ontop')
+                    this.ontop = true
                 },4000)
             }
             for(let i = 0;i<sections.length;i++){
@@ -122,13 +148,44 @@ export default {
             if(poem.offsetTop < htmlheight+htmlscrolltop){
                 poemcontent.style.opacity = 1
             }else{poemcontent.style.opacity = 0}
+        },
+        load(){
+            if (this.imgs.length>0){
+                let i = this.imgs.length
+                while(i--){
+                    if(this.imgs[i].width>0){
+                        this.loadbar += 7.6
+                        this.imgs.splice(i,1)
+                    }
+                }
+                setTimeout(this.load, 50);
+            }else{
+                setTimeout(()=>{
+                    document.getElementsByClassName('loading')[0].classList.remove('loading')
+                    document.getElementsByTagName('html')[0].scrollTop = 0
+                }, 1000);
+                if (document.addEventListener) {
+                    document.addEventListener('scroll', this.scrollfn, false);  
+                }  
+                window.onscroll = this.scrollfn; 
+                this.scrollfn
+            }
+        },
+        about(e){
+            if(e==false){
+                this.showabout = false
+            }else{
+                this.showabout = true
+            }
         }
     },
     mounted(){
-        if (document.addEventListener) {
-            document.addEventListener('scroll', this.scrollfn, false);  
-        }  
-        window.onscroll = this.scrollfn; 
+        this.imgs = [new Image(),new Image(),new Image()]
+        this.imgs[0].src = '../../static/titlebg.jpg'
+        this.imgs[1].src = '../../static/jessi1.jpg'
+        this.imgs[2].src = '../../static/other.jpg'
+        this.load()
+        event.$on('about',this.about)
     }
 }
 </script>
