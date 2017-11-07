@@ -34,7 +34,7 @@
     z-index: -1;
     width: 100%;
     height: 100vh;
-    background-image: url(../../static/titlebg.jpg);
+    background-image: url(/static/titlebg.jpg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: auto 80%;
@@ -257,7 +257,7 @@ section img {
     align-items: center;
     width: 100%;
     height: 100vh;
-    background-image: url(../../static/jessi1.jpg);
+    background-image: url(/static/jessi1.jpg);
     background-repeat: no-repeat;
     background-attachment:fixed;
     background-position: 0 10rem;
@@ -318,7 +318,7 @@ section img {
 .content3 .other {
     width: 100%;
     height: 50rem;
-    background-image: url(../../static/other.jpg);
+    background-image: url(/static/other.jpg);
     background-repeat: no-repeat;
     background-attachment:fixed;
     background-position: 0 -10rem;
@@ -360,6 +360,10 @@ footer {
     width: 100%;
     height: 100vh;
     background-color: #d3dbff;
+    background-image: url(/static/footerbg.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% auto;
 }
 footer h3 {
     color: #4e7992;
