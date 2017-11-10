@@ -153,9 +153,11 @@ export default {
             if (this.imgs.length>0){
                 let i = this.imgs.length
                 while(i--){
-                    if(this.imgs[i].width>0){
-                        this.loadbar += 1.4
-                        this.imgs.splice(i,1)
+                    let that = this
+                    this.imgs[i].onload = function(){
+                        console.log('onload')
+                        that.loadbar += 1.4
+                        that.imgs.splice(i,1) 
                     }
                 }
                 setTimeout(this.load, 50);
