@@ -122,7 +122,7 @@ export default {
             let poemcontent = document.getElementById('poemcontent')
             let sections = document.getElementsByTagName('section')
             let titleheight = document.getElementById('titlearea').clientHeight
-            let htmlscrolltop = document.getElementsByTagName('html')[0].scrollTop
+            let htmlscrolltop = document.getElementsByTagName('html')[0].scrollTop||window.pageYOffset||document.body.scrollTop
             let htmlheight = document.getElementsByTagName('html')[0].clientHeight
             if(htmlscrolltop<titleheight){
                 document.getElementById('titlearea').style.opacity = 1
@@ -155,7 +155,6 @@ export default {
                 while(i--){
                     let that = this
                     this.imgs[i].onload = function(){
-                        console.log('onload')
                         that.loadbar += 1.4
                         that.imgs.splice(i,1) 
                     }
